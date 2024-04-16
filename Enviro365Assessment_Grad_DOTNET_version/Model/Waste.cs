@@ -8,7 +8,7 @@ public class Waste
 {
     [Key]
     [Required]
-    [Column(name: "wasteid")]
+    [Column(name: "waste_id")]
     public long Id { get; set; }
 
     [Required]
