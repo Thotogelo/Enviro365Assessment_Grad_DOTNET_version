@@ -1,0 +1,6 @@
+@Enviro365Assessment_GradJava_DOTNET_version_HostAddress = http://localhost:5244
+
+GET {{Enviro365Assessment_GradJava_DOTNET_version_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
