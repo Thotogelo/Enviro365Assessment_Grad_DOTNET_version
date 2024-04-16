@@ -9,8 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcf5c259-1b40-45ae-a04a-1ee74b0a3617" name="Changes" comment="Configure swagger">
-      <change afterPath="$PROJECT_DIR$/Enviro365Assessment_Grad_DOTNET_version/Model/Waste.cs" afterDir="false" />
+    <list default="true" id="dcf5c259-1b40-45ae-a04a-1ee74b0a3617" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Enviro365Assessment_GradJava_DOTNET_version/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Enviro365Assessment_GradJava_DOTNET_version/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +129,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1713283559004</updated>
-      <workItem from="1713283559008" duration="4428000" />
+      <workItem from="1713283559008" duration="5883000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -147,7 +147,31 @@
       <option name="project" value="LOCAL" />
       <updated>1713285275339</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add model">
+      <option name="closed" value="true" />
+      <created>1713289144169</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713289144169</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Config files">
+      <option name="closed" value="true" />
+      <created>1713289161531</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713289161531</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add controller class">
+      <option name="closed" value="true" />
+      <created>1713289383584</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1713289383584</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -177,6 +201,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="initial commit" />
     <MESSAGE value="Configure swagger" />
-    <option name="LAST_COMMIT_MESSAGE" value="Configure swagger" />
+    <MESSAGE value="Add model" />
+    <MESSAGE value="Config files" />
+    <MESSAGE value="Add controller class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add controller class" />
   </component>
 </project>
