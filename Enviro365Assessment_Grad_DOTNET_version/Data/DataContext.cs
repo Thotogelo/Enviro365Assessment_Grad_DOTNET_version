@@ -6,11 +6,12 @@ namespace Enviro365Assessment_Grad_DOTNET_version.Data;
 
 public class DataContext : DbContext
 {
-    private readonly IConfiguration _configuration;
+    private readonly IConfiguration? _configuration;
     public DbSet<Waste> Wastes { get; set; }
 
-    public DataContext(DbContextOptions options) : base(options)
+    public DataContext(DbContextOptions options, IConfiguration configuration) : base(options)
     {
+        _configuration = configuration;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
