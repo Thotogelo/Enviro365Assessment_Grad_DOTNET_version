@@ -6,5 +6,6 @@ namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
 [Route("/api/[controller]")]
 public class WasteController : ControllerBase
 {
-    
+    [HttpGet]
+    public ActionResult<string> Test() => "Test";
 }
