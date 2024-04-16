@@ -1,9 +1,15 @@
+using Enviro365Assessment_Grad_DOTNET_version.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddDbContext<DataContext>();
+
+//Add DI
+builder.Services.AddTransient<DataContext>();
 
 var app = builder.Build();
 
@@ -16,7 +22,5 @@ app.UseSwaggerUI(opt =>
 });
 
 app.MapControllers();
-
-app.MapGet("/test", () => "Hello World!");
 
 app.Run();
