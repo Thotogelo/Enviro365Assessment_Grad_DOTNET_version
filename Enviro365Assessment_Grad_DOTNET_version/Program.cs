@@ -7,6 +7,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddProblemDetails();
 
 //Add DI
 builder.Services.AddTransient<DataContext>();
