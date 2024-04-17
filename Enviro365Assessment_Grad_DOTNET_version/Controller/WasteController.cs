@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
 
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/v1/api/[controller]")]
 public class WasteController : ControllerBase
 {
     private readonly DataContext _dataContext;
@@ -38,7 +38,7 @@ public class WasteController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet("data")]
     [Produces("application/json")]
     public ActionResult<List<Waste>> GetAllWaste()
     {
@@ -56,7 +56,7 @@ public class WasteController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost("save")]
     [Consumes("application/json")]
     [Produces("application/json")]
     public IActionResult SaveWaste(Waste waste)
