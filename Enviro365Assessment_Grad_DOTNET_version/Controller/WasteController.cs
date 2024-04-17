@@ -44,7 +44,7 @@ public class WasteController : ControllerBase
     {
         try
         {
-            return _dataContext.Wastes.Where(x => x.Id > 0).ToList();
+            return _dataContext.Wastes.ToList<Waste>();
         }
         catch (Exception e)
         {
