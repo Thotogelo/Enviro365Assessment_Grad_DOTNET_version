@@ -160,4 +160,38 @@ public class WasteController : ControllerBase
             });
         }
     }
+
+    [HttpDelete("category/{category}")]
+    public IActionResult DeleteWasteListByCategory(string category)
+    {
+        try
+        {
+            List<Waste> wasteList = _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
+
+            _dataContext.Wastes.RemoveRange(wasteList.ToArray());
+            int rowsAffected = _dataContext.SaveChanges();
+            if (rowsAffected > 0)
+            {
+                return Ok(new ProblemDetails
+                {
+                    Title = "Waste list removed successfuly.",
+                });
+            }
+            else
+            {
+                return BadRequest(new ProblemDetails
+                {
+                    Title = "Waste list not removed.",
+                });
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ProblemDetails
+            {
+                Title = e.Message,
+                Status = (int)HttpStatusCode.InternalServerError
+            });
+        }
+    }
 }
