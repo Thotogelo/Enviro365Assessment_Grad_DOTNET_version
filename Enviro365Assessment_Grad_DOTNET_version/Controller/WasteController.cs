@@ -38,6 +38,24 @@ public class WasteController : ControllerBase
         }
     }
 
+    [HttpGet("category/{category}")]
+    [Produces("application/json")]
+    public ActionResult<List<Waste>> GetWasteListByCategory(string category)
+    {
+        try
+        {
+            return Ok(_dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ProblemDetails
+            {
+                Title = e.Message,
+                Status = (int)HttpStatusCode.InternalServerError
+            });
+        }
+    }
+
     [HttpGet("data")]
     [Produces("application/json")]
     public ActionResult<List<Waste>> GetAllWaste()
@@ -89,9 +107,7 @@ public class WasteController : ControllerBase
         {
             var dbWaste = _dataContext.Wastes.Find(waste.Id);
             if (dbWaste == null)
-            {
                 return NotFound(new ProblemDetails { Title = "Waste not found.", Status = (int)HttpStatusCode.NotFound });
-            }
 
             _dataContext.Entry(dbWaste).CurrentValues.SetValues(waste);
             int rowsAffected = _dataContext.SaveChanges();
