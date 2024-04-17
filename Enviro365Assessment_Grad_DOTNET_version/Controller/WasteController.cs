@@ -132,7 +132,13 @@ public class WasteController : ControllerBase
         {
             Waste? dbwaste = _dataContext.Wastes.Find(id);
             if (dbwaste == null)
-                return NotFound();
+            {
+                return BadRequest(new ProblemDetails
+                {
+                    Title = $"Waste with Id: {id}",
+                    Status = (int)HttpStatusCode.NotFound
+                });
+            }
 
             _dataContext.Wastes.Remove(dbwaste);
             int rowsAffected = _dataContext.SaveChanges();
@@ -141,6 +147,7 @@ public class WasteController : ControllerBase
                 return Ok(new ProblemDetails
                 {
                     Title = "Waste removed successfuly.",
+                    Status = (int)HttpStatusCode.OK
                 });
             }
             else
@@ -148,6 +155,7 @@ public class WasteController : ControllerBase
                 return BadRequest(new ProblemDetails
                 {
                     Title = "Waste not removed.",
+                    Status = (int)HttpStatusCode.BadRequest
                 });
             }
         }
@@ -175,6 +183,7 @@ public class WasteController : ControllerBase
                 return Ok(new ProblemDetails
                 {
                     Title = "Waste list removed successfuly.",
+                    Status = (int)HttpStatusCode.OK
                 });
             }
             else
@@ -182,6 +191,7 @@ public class WasteController : ControllerBase
                 return BadRequest(new ProblemDetails
                 {
                     Title = "Waste list not removed.",
+                    Status = (int)HttpStatusCode.BadRequest
                 });
             }
         }
