@@ -14,6 +14,23 @@ public class WasteController : ControllerBase
     public WasteController(DataContext dataContext) =>
         _dataContext = dataContext;
 
+    [HttpGet]
+    [Produces("application/json")]
+    public ActionResult<List<Waste>> GetAllWaste()
+    {
+        try
+        {
+            return _dataContext.Wastes.Where(x => x.Id > 0).ToList();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ProblemDetails
+            {
+                Title = e.Message,
+                Status = (int)HttpStatusCode.InternalServerError
+            });
+        }
+    }
 
     [HttpPost]
     [Consumes("application/json")]
@@ -26,7 +43,8 @@ public class WasteController : ControllerBase
             int rowsAffected = _dataContext.SaveChanges();
             return (rowsAffected > 0)
                 ? Ok(new ProblemDetails { Title = "Waste saved successfully.", Status = (int)HttpStatusCode.Created })
-                : BadRequest(new ProblemDetails { Title = "Waste not saved.", Status = (int)HttpStatusCode.InternalServerError });
+                : BadRequest(new ProblemDetails
+                    { Title = "Waste not saved.", Status = (int)HttpStatusCode.InternalServerError });
         }
         catch (Exception e)
         {
