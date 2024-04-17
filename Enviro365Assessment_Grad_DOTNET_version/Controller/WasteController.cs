@@ -17,18 +17,25 @@ public class WasteController : ControllerBase
 
 
     [HttpPost]
+    [Consumes("application/json")]
     [Produces("application/json")]
-    public ActionResult<ResponseObject> SaveWaste(Waste waste)
+    public ActionResult<ProblemDetails> SaveWaste(Waste waste)
     {
         try
         {
             _dataContext.Add(waste);
             int rowsAffected = _dataContext.SaveChanges();
-            return (rowsAffected > 0) ? new ResponseObject("Waste saved successfully.", 200) : new ResponseObject("Waste not saved.", 400);
+            // return (rowsAffected > 0) ? new ResponseObject("Waste saved successfully.", 200) : new ResponseObject("Waste not saved.", 400);
+            return (rowsAffected > 0) ? new ProblemDetails { Title = "Waste saved successfully.", Status = 200 } : new ProblemDetails { Title = "Waste not saved.", Status = 400 };
         }
         catch (Exception e)
         {
-            return new ResponseObject(e.Message, (int)HttpStatusCode.InternalServerError);
+            // return new ResponseObject(e.Message, (int)HttpStatusCode.InternalServerError);
+            return new ProblemDetails
+            {
+                Title = e.Message,
+                Status = (int)HttpStatusCode.InternalServerError
+            };
         }
     }
 }
