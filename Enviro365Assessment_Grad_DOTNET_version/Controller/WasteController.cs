@@ -2,6 +2,7 @@
 using Enviro365Assessment_Grad_DOTNET_version.Data;
 using Enviro365Assessment_Grad_DOTNET_version.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
 
@@ -9,13 +10,14 @@ namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
 [Route("/api/[controller]")]
 public class WasteController : ControllerBase
 {
-    private DataContext _dataContext;
+    private readonly DataContext _dataContext;
 
-    public WasteController(DataContext dataContext)
-    {
+    public WasteController(DataContext dataContext) =>
         _dataContext = dataContext;
-    }
+
+
     [HttpPost]
+    [Produces("application/json")]
     public ActionResult<ResponseObject> SaveWaste(Waste waste)
     {
         try
@@ -26,7 +28,7 @@ public class WasteController : ControllerBase
         }
         catch (Exception e)
         {
-            return new ResponseObject("An error occurred while saving the waste.", ((int)HttpStatusCode.InternalServerError));
+            return new ResponseObject(e.Message, (int)HttpStatusCode.InternalServerError);
         }
     }
 }
