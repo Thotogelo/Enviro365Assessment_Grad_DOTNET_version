@@ -80,6 +80,35 @@ public class WasteController : ControllerBase
         }
     }
 
+    [HttpPut("update")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    public IActionResult UpdateWaste(Waste waste)
+    {
+        try
+        {
+            var dbWaste = _dataContext.Wastes.Find(waste.Id);
+            if (dbWaste == null)
+            {
+                return NotFound(new ProblemDetails { Title = "Waste not found.", Status = (int)HttpStatusCode.NotFound });
+            }
+
+            _dataContext.Entry(dbWaste).CurrentValues.SetValues(waste);
+            int rowsAffected = _dataContext.SaveChanges();
+            return (rowsAffected > 0)
+                ? Ok(new ProblemDetails { Title = "Waste updated successfully.", Status = (int)HttpStatusCode.OK })
+                : BadRequest(new ProblemDetails { Title = "Waste not updated.", Status = (int)HttpStatusCode.BadRequest });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ProblemDetails
+            {
+                Title = e.Message,
+                Status = (int)HttpStatusCode.InternalServerError
+            });
+        }
+    }
+
     [HttpDelete("{id}")]
     public IActionResult DeleteWasteById(long id)
     {
