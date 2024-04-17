@@ -79,4 +79,40 @@ public class WasteController : ControllerBase
             });
         }
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteWasteById(long id)
+    {
+        try
+        {
+            Waste? dbwaste = _dataContext.Wastes.Find(id);
+            if (dbwaste == null)
+                return NotFound();
+
+            _dataContext.Wastes.Remove(dbwaste);
+            int rowsAffected = _dataContext.SaveChanges();
+            if (rowsAffected > 0)
+            {
+                return Ok(new ProblemDetails
+                {
+                    Title = "Waste removed successfuly.",
+                });
+            }
+            else
+            {
+                return BadRequest(new ProblemDetails
+                {
+                    Title = "Waste not removed.",
+                });
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ProblemDetails
+            {
+                Title = e.Message,
+                Status = (int)HttpStatusCode.InternalServerError
+            });
+        }
+    }
 }
