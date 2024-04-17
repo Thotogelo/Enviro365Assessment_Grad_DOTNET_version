@@ -13,13 +13,13 @@ public class Waste
 
     [Required]
     [Column(name: "waste_category", TypeName = "varchar(10)")]
-    public string Category { get; set; }
+    public required string Category { get; set; }
 
     [Required]
     [Column(name: "disposal_guideline", TypeName = "varchar(50)")]
-    public string Disposalguideline { get; set; }
+    public required string Disposalguideline { get; set; }
 
     [Required]
     [Column(name: "recycling_tips", TypeName = "varchar(100)")]
-    public string Recyclingtips { get; set; }
+    public required string Recyclingtips { get; set; }
 }
