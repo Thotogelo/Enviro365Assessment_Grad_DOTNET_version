@@ -32,12 +32,7 @@ public class WasteController : ControllerBase
         }
         catch (Exception e)
         {
-            return BadRequest(new ProblemDetails
-            {
-                Title = e.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
-                Instance = Request.Path.Value
-            });
+            throw new WasteError(e.Message);
         }
     }
 
@@ -51,12 +46,7 @@ public class WasteController : ControllerBase
         }
         catch (Exception e)
         {
-            return BadRequest(new ProblemDetails
-            {
-                Title = e.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
-                Instance = Request.Path.Value
-            });
+            throw new WasteError(e.Message);
         }
     }
 
@@ -70,12 +60,7 @@ public class WasteController : ControllerBase
         }
         catch (Exception e)
         {
-            return BadRequest(new ProblemDetails
-            {
-                Title = e.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
-                Instance = Request.Path.Value
-            });
+            throw new WasteError(e.Message);
         }
     }
 
@@ -91,23 +76,20 @@ public class WasteController : ControllerBase
             return (rowsAffected > 0)
                 ? Ok(new ProblemDetails
                 {
-                    Title = "Waste saved successfully.", Status = (int)HttpStatusCode.Created,
+                    Title = "Waste saved successfully.",
+                    Status = (int)HttpStatusCode.Created,
                     Instance = Request.Path.Value
                 })
                 : BadRequest(new ProblemDetails
                 {
-                    Title = "Waste not saved.", Status = (int)HttpStatusCode.InternalServerError,
+                    Title = "Waste not saved.",
+                    Status = (int)HttpStatusCode.InternalServerError,
                     Instance = Request.Path.Value
                 });
         }
         catch (Exception e)
         {
-            return BadRequest(new ProblemDetails
-            {
-                Title = e.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
-                Instance = Request.Path.Value
-            });
+            throw new WasteError(e.Message);
         }
     }
 
@@ -123,7 +105,8 @@ public class WasteController : ControllerBase
                 return NotFound(
                     new ProblemDetails
                     {
-                        Title = "Waste not found.", Status = (int)HttpStatusCode.NotFound,
+                        Title = "Waste not found.",
+                        Status = (int)HttpStatusCode.NotFound,
                         Instance = Request.Path.Value
                     });
 
@@ -132,23 +115,20 @@ public class WasteController : ControllerBase
             return (rowsAffected > 0)
                 ? Ok(new ProblemDetails
                 {
-                    Title = "Waste updated successfully.", Status = (int)HttpStatusCode.OK,
+                    Title = "Waste updated successfully.",
+                    Status = (int)HttpStatusCode.OK,
                     Instance = Request.Path.Value
                 })
                 : BadRequest(new ProblemDetails
                 {
-                    Title = "Waste not updated.", Status = (int)HttpStatusCode.BadRequest,
+                    Title = "Waste not updated.",
+                    Status = (int)HttpStatusCode.BadRequest,
                     Instance = Request.Path.Value
                 });
         }
         catch (Exception e)
         {
-            return BadRequest(new ProblemDetails
-            {
-                Title = e.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
-                Instance = Request.Path.Value
-            });
+            throw new WasteError(e.Message);
         }
     }
 
@@ -191,12 +171,7 @@ public class WasteController : ControllerBase
         }
         catch (Exception e)
         {
-            return BadRequest(new ProblemDetails
-            {
-                Title = e.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
-                Instance = Request.Path.Value
-            });
+            throw new WasteError(e.Message);
         }
     }
 
@@ -230,12 +205,7 @@ public class WasteController : ControllerBase
         }
         catch (Exception e)
         {
-            return BadRequest(new ProblemDetails
-            {
-                Title = e.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
-                Instance = Request.Path.Value
-            });
+            throw new WasteError(e.Message);
         }
     }
 }
