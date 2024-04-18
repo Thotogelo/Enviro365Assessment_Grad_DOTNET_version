@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddProblemDetails();
 
+// Logging Services
 builder.Logging.AddConsole();
 
 //Add DI
@@ -27,32 +28,6 @@ app.UseSwaggerUI(opt =>
 
 // Use the custom error handler middleware
 app.UseMiddleware<ErrorHandlerMiddleware>();
-// app.UseExceptionHandler(appError =>
-// {
-//     appError.Run(async ctx =>
-//     {
-//         ctx.Response.StatusCode = 500;
-//         ctx.Response.ContentType = "application/json";
-
-//         var ctxFeature = ctx.Features.Get<IExceptionHandlerFeature>();
-
-//         if (ctxFeature is not null)
-//         {
-//             Console.WriteLine("Error: " + ctxFeature.Error);
-//             await ctx.Response.WriteAsJsonAsync(new
-//             {
-//                 ctx.Response.StatusCode,
-//                 Message = "Internal Server Error"
-//             });
-
-//         }
-//     });
-// });
-
-app.MapGet("/demo", () =>
-{
-    throw new WasteError();
-});
 
 app.MapControllers();
 
