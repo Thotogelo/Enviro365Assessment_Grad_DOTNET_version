@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Enviro365Assessment_Grad_DOTNET_version.Data;
 using Enviro365Assessment_Grad_DOTNET_version.Model;
+using Enviro365Assessment_Grad_DOTNET_version.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
@@ -10,30 +11,27 @@ namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
 public class WasteController : ControllerBase
 {
     private readonly DataContext _dataContext;
+    private readonly WasteRepository _wasteRepository;
 
-    public WasteController(DataContext dataContext) =>
+    public WasteController(WasteRepository wasteRepository, DataContext dataContext)
+    {
+        _wasteRepository = wasteRepository;
         _dataContext = dataContext;
+    }
 
     [HttpGet("{id}")]
     [Produces("application/json")]
     public ActionResult<Waste> GetWasteById(long id)
     {
-        try
-        {
-            var waste = _dataContext.Wastes.Find(id);
-            return (waste != null)
-                ? Ok(waste)
-                : NotFound(new ProblemDetails
-                {
-                    Title = "Waste not found.",
-                    Status = (int)HttpStatusCode.NotFound,
-                    Instance = Request.Path.Value,
-                });
-        }
-        catch (Exception e)
-        {
-            throw new WasteError(e.Message);
-        }
+        Waste? waste = _wasteRepository.GetWasteById(id);
+        return (waste != null)
+            ? Ok(waste)
+            : NotFound(new ProblemDetails
+            {
+                Title = "Waste not found.",
+                Status = (int)HttpStatusCode.NotFound,
+                Instance = Request.Path.Value,
+            });
     }
 
     [HttpGet("category/{category}")]
@@ -56,7 +54,7 @@ public class WasteController : ControllerBase
     {
         try
         {
-            return _dataContext.Wastes.ToList<Waste>();
+            return Ok(_dataContext.Wastes.ToList());
         }
         catch (Exception e)
         {
