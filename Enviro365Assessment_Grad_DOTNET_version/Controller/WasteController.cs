@@ -117,34 +117,24 @@ public class WasteController : ControllerBase
     [HttpDelete("category/{category}")]
     public IActionResult DeleteWasteListByCategory(string category)
     {
-        try
+        int rowsAffected = _wasteRepository.DeleteWasteListByCategory(category);
+        if (rowsAffected > 0)
         {
-            List<Waste> wasteList = _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
-
-            _dataContext.Wastes.RemoveRange(wasteList);
-            int rowsAffected = _dataContext.SaveChanges();
-            if (rowsAffected > 0)
+            return Ok(new ProblemDetails
             {
-                return Ok(new ProblemDetails
-                {
-                    Title = "Waste list removed successfuly.",
-                    Status = (int)HttpStatusCode.OK,
-                    Instance = Request.Path.Value
-                });
-            }
-            else
-            {
-                return BadRequest(new ProblemDetails
-                {
-                    Title = "Waste list not removed.",
-                    Status = (int)HttpStatusCode.BadRequest,
-                    Instance = Request.Path.Value
-                });
-            }
+                Title = "Waste list removed successfuly.",
+                Status = (int)HttpStatusCode.OK,
+                Instance = Request.Path.Value
+            });
         }
-        catch (Exception e)
+        else
         {
-            throw new WasteError(e.Message);
+            return BadRequest(new ProblemDetails
+            {
+                Title = "Waste list not removed.",
+                Status = (int)HttpStatusCode.BadRequest,
+                Instance = Request.Path.Value
+            });
         }
     }
 }
