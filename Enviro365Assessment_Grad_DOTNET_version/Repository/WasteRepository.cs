@@ -10,7 +10,7 @@ public class WasteRepository : IWasteRepository
     public WasteRepository(DataContext dataContext) =>
         _dataContext = dataContext;
 
-    public Waste GetWasteById(long Id)
+    public Waste? GetWasteById(long Id)
     {
         try
         {
