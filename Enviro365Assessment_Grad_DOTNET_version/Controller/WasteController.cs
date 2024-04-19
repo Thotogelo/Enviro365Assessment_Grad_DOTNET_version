@@ -93,43 +93,24 @@ public class WasteController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteWasteById(long id)
     {
-        try
+        int rowsAffected = _wasteRepository.DeleteWasteById(id);
+        if (rowsAffected > 0)
         {
-            Waste? dbwaste = _dataContext.Wastes.Find(id);
-            if (dbwaste == null)
+            return Ok(new ProblemDetails
             {
-                return BadRequest(new ProblemDetails
-                {
-                    Title = $"Waste with Id: {id}",
-                    Status = (int)HttpStatusCode.NotFound,
-                    Instance = Request.Path.Value
-                });
-            }
-
-            _dataContext.Wastes.Remove(dbwaste);
-            int rowsAffected = _dataContext.SaveChanges();
-            if (rowsAffected > 0)
-            {
-                return Ok(new ProblemDetails
-                {
-                    Title = "Waste removed successfuly.",
-                    Status = (int)HttpStatusCode.OK,
-                    Instance = Request.Path.Value
-                });
-            }
-            else
-            {
-                return BadRequest(new ProblemDetails
-                {
-                    Title = "Waste not removed.",
-                    Status = (int)HttpStatusCode.BadRequest,
-                    Instance = Request.Path.Value
-                });
-            }
+                Title = "Waste removed successfuly.",
+                Status = (int)HttpStatusCode.OK,
+                Instance = Request.Path.Value
+            });
         }
-        catch (Exception e)
+        else
         {
-            throw new WasteError(e.Message);
+            return BadRequest(new ProblemDetails
+            {
+                Title = "Waste not removed.",
+                Status = (int)HttpStatusCode.BadRequest,
+                Instance = Request.Path.Value
+            });
         }
     }
 
