@@ -10,14 +10,10 @@ namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
 [Route("/v1/api/[controller]")]
 public class WasteController : ControllerBase
 {
-    private readonly DataContext _dataContext;
-    private readonly WasteRepository _wasteRepository;
+    private readonly IWasteRepository _wasteRepository;
 
-    public WasteController(WasteRepository wasteRepository, DataContext dataContext)
-    {
-        _wasteRepository = wasteRepository;
-        _dataContext = dataContext;
-    }
+    public WasteController(IWasteRepository wasteRepository)
+        => _wasteRepository = wasteRepository;
 
     [HttpGet("{id}")]
     [Produces("application/json")]
@@ -64,7 +60,7 @@ public class WasteController : ControllerBase
             : BadRequest(new ProblemDetails
             {
                 Title = "Waste not saved.",
-                Status = (int)HttpStatusCode.InternalServerError,
+                Status = (int)HttpStatusCode.NotFound,
                 Instance = Request.Path.Value
             });
     }
@@ -108,7 +104,7 @@ public class WasteController : ControllerBase
             return BadRequest(new ProblemDetails
             {
                 Title = "Waste not removed.",
-                Status = (int)HttpStatusCode.BadRequest,
+                Status = (int)HttpStatusCode.NotFound,
                 Instance = Request.Path.Value
             });
         }
@@ -132,7 +128,7 @@ public class WasteController : ControllerBase
             return BadRequest(new ProblemDetails
             {
                 Title = "Waste list not removed.",
-                Status = (int)HttpStatusCode.BadRequest,
+                Status = (int)HttpStatusCode.NotFound,
                 Instance = Request.Path.Value
             });
         }
