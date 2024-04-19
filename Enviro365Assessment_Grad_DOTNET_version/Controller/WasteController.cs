@@ -74,38 +74,20 @@ public class WasteController : ControllerBase
     [Produces("application/json")]
     public IActionResult UpdateWaste(Waste waste)
     {
-        try
-        {
-            var dbWaste = _dataContext.Wastes.Find(waste.Id);
-            if (dbWaste == null)
-                return NotFound(
-                    new ProblemDetails
-                    {
-                        Title = "Waste not found.",
-                        Status = (int)HttpStatusCode.NotFound,
-                        Instance = Request.Path.Value
-                    });
-
-            _dataContext.Entry(dbWaste).CurrentValues.SetValues(waste);
-            int rowsAffected = _dataContext.SaveChanges();
-            return (rowsAffected > 0)
-                ? Ok(new ProblemDetails
-                {
-                    Title = "Waste updated successfully.",
-                    Status = (int)HttpStatusCode.OK,
-                    Instance = Request.Path.Value
-                })
-                : BadRequest(new ProblemDetails
-                {
-                    Title = "Waste not updated.",
-                    Status = (int)HttpStatusCode.BadRequest,
-                    Instance = Request.Path.Value
-                });
-        }
-        catch (Exception e)
-        {
-            throw new WasteError(e.Message);
-        }
+        int rowsAffected = _wasteRepository.UpdateWaste(waste);
+        return (rowsAffected > 0)
+            ? Ok(new ProblemDetails
+            {
+                Title = "Waste updated successfully.",
+                Status = (int)HttpStatusCode.OK,
+                Instance = Request.Path.Value
+            })
+            : BadRequest(new ProblemDetails
+            {
+                Title = "Waste not updated.",
+                Status = (int)HttpStatusCode.BadRequest,
+                Instance = Request.Path.Value
+            });
     }
 
     [HttpDelete("{id}")]
