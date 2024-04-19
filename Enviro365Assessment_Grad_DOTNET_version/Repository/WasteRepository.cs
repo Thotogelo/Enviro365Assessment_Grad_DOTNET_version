@@ -36,7 +36,14 @@ public class WasteRepository : IWasteRepository
 
     public List<Waste> GetAllWaste()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return _dataContext.Wastes.ToList();
+        }
+        catch (Exception e)
+        {
+            throw new WasteError(e.Message);
+        }
     }
 
     public int SaveWaste(Waste waste)
