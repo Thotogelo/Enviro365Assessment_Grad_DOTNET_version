@@ -45,14 +45,7 @@ public class WasteController : ControllerBase
     [Produces("application/json")]
     public ActionResult<List<Waste>> GetAllWaste()
     {
-        try
-        {
-            return Ok(_dataContext.Wastes.ToList());
-        }
-        catch (Exception e)
-        {
-            throw new WasteError(e.Message);
-        }
+        return Ok(_wasteRepository.GetAllWaste());
     }
 
     [HttpPost("save")]
