@@ -77,7 +77,18 @@ public class WasteRepository : IWasteRepository
 
     public int DeleteWasteById(long id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            Waste? dbwaste = _dataContext.Wastes.Find(id);
+
+            _dataContext.Wastes.Remove(dbwaste);
+            int rowsAffected = _dataContext.SaveChanges();
+            return rowsAffected;
+        }
+        catch (Exception e)
+        {
+            throw new WasteError(e.Message);
+        }
     }
 
     public int DeleteWasteListByCategory(string category)
