@@ -59,7 +59,6 @@ public class WasteRepository : IWasteRepository
         }
     }
 
-    //TODO Not correlty implemented
     public int UpdateWaste(Waste waste)
     {
         try
@@ -77,7 +76,6 @@ public class WasteRepository : IWasteRepository
         }
     }
 
-    //TODO Not correlty implemented
     public int DeleteWasteById(long id)
     {
         try
