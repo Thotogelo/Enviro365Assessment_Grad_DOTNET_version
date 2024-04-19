@@ -53,28 +53,20 @@ public class WasteController : ControllerBase
     [Produces("application/json")]
     public IActionResult SaveWaste(Waste waste)
     {
-        try
-        {
-            _dataContext.Add(waste);
-            int rowsAffected = _dataContext.SaveChanges();
-            return (rowsAffected > 0)
-                ? Ok(new ProblemDetails
-                {
-                    Title = "Waste saved successfully.",
-                    Status = (int)HttpStatusCode.Created,
-                    Instance = Request.Path.Value
-                })
-                : BadRequest(new ProblemDetails
-                {
-                    Title = "Waste not saved.",
-                    Status = (int)HttpStatusCode.InternalServerError,
-                    Instance = Request.Path.Value
-                });
-        }
-        catch (Exception e)
-        {
-            throw new WasteError(e.Message);
-        }
+        int rowsAffected = _wasteRepository.SaveWaste(waste);
+        return (rowsAffected > 0)
+            ? Ok(new ProblemDetails
+            {
+                Title = "Waste saved successfully.",
+                Status = (int)HttpStatusCode.Created,
+                Instance = Request.Path.Value
+            })
+            : BadRequest(new ProblemDetails
+            {
+                Title = "Waste not saved.",
+                Status = (int)HttpStatusCode.InternalServerError,
+                Instance = Request.Path.Value
+            });
     }
 
     [HttpPut("update")]
