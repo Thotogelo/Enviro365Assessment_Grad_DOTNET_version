@@ -4,7 +4,7 @@ namespace Enviro365Assessment_Grad_DOTNET_version.Repository;
 
 public interface IWasteRepository
 {
-    Waste GetWasteById(long Id);
+    Waste? GetWasteById(long Id);
 
     List<Waste> GetWasteListByCategory(string category);
 
