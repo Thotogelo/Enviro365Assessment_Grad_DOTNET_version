@@ -80,7 +80,10 @@ public class WasteRepository : IWasteRepository
     {
         try
         {
-            Waste? dbwaste = _dataContext.Wastes.Find(id);
+            var dbwaste = _dataContext.Wastes.Find(id);
+            if (dbwaste == null)
+                return 0;
+
             _dataContext.Wastes.Remove(dbwaste);
             return _dataContext.SaveChanges();
         }
