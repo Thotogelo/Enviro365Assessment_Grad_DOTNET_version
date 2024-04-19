@@ -64,7 +64,7 @@ public class WasteRepository : IWasteRepository
     {
         try
         {
-            var dbWaste =  _dataContext.Wastes.Find(waste.Id);
+            var dbWaste = _dataContext.Wastes.Find(waste.Id);
             _dataContext.Entry(dbWaste).CurrentValues.SetValues(waste);
             int rowsAffected = _dataContext.SaveChanges();
             return rowsAffected;
@@ -93,6 +93,17 @@ public class WasteRepository : IWasteRepository
 
     public int DeleteWasteListByCategory(string category)
     {
-        throw new NotImplementedException();
+        try
+        {
+            List<Waste> wasteList = _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
+
+            _dataContext.Wastes.RemoveRange(wasteList);
+            int rowsAffected = _dataContext.SaveChanges();
+            return rowsAffected;
+        }
+        catch (Exception e)
+        {
+            throw new WasteError(e.Message);
+        }
     }
 }
