@@ -59,9 +59,20 @@ public class WasteRepository : IWasteRepository
         }
     }
 
+    //TODO Not correlty implemented
     public int UpdateWaste(Waste waste)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var dbWaste =  _dataContext.Wastes.Find(waste.Id);
+            _dataContext.Entry(dbWaste).CurrentValues.SetValues(waste);
+            int rowsAffected = _dataContext.SaveChanges();
+            return rowsAffected;
+        }
+        catch (Exception e)
+        {
+            throw new WasteError(e.Message);
+        }
     }
 
     public int DeleteWasteById(long id)
