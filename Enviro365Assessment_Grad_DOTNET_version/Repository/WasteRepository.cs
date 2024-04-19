@@ -24,7 +24,14 @@ public class WasteRepository : IWasteRepository
 
     public List<Waste> GetWasteListByCategory(string category)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
+        }
+        catch (Exception e)
+        {
+            throw new WasteError(e.Message);
+        }
     }
 
     public List<Waste> GetAllWaste()
