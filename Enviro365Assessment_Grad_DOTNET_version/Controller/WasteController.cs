@@ -38,14 +38,7 @@ public class WasteController : ControllerBase
     [Produces("application/json")]
     public ActionResult<List<Waste>> GetWasteListByCategory(string category)
     {
-        try
-        {
-            return Ok(_dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList());
-        }
-        catch (Exception e)
-        {
-            throw new WasteError(e.Message);
-        }
+        return Ok(_wasteRepository.GetWasteListByCategory(category));
     }
 
     [HttpGet("data")]
