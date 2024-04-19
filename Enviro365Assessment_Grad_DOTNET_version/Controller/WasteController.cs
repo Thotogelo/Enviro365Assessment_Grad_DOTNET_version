@@ -182,7 +182,7 @@ public class WasteController : ControllerBase
         {
             List<Waste> wasteList = _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
 
-            _dataContext.Wastes.RemoveRange(wasteList.ToArray());
+            _dataContext.Wastes.RemoveRange(wasteList);
             int rowsAffected = _dataContext.SaveChanges();
             if (rowsAffected > 0)
             {
