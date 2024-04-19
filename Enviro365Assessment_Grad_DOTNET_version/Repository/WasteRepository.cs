@@ -1,12 +1,25 @@
-﻿using Enviro365Assessment_Grad_DOTNET_version.Model;
+﻿using Enviro365Assessment_Grad_DOTNET_version.Data;
+using Enviro365Assessment_Grad_DOTNET_version.Model;
 
 namespace Enviro365Assessment_Grad_DOTNET_version.Repository;
 
 public class WasteRepository : IWasteRepository
 {
+    private readonly DataContext _dataContext;
+
+    public WasteRepository(DataContext dataContext) =>
+        _dataContext = dataContext;
+
     public Waste GetWasteById(long Id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return _dataContext.Wastes.Find(Id);
+        }
+        catch (Exception e)
+        {
+            throw new WasteError(e.Message);
+        }
     }
 
     public List<Waste> GetWasteListByCategory(string category)
