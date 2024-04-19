@@ -48,7 +48,15 @@ public class WasteRepository : IWasteRepository
 
     public int SaveWaste(Waste waste)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _dataContext.Add(waste);
+            return _dataContext.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new WasteError(e.Message);
+        }
     }
 
     public int UpdateWaste(Waste waste)
