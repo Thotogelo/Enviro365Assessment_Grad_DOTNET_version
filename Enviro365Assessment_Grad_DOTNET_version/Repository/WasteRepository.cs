@@ -65,9 +65,11 @@ public class WasteRepository : IWasteRepository
         try
         {
             var dbWaste = _dataContext.Wastes.Find(waste.Id);
+            if (dbWaste == null)
+                return 0;
+
             _dataContext.Entry(dbWaste).CurrentValues.SetValues(waste);
-            int rowsAffected = _dataContext.SaveChanges();
-            return rowsAffected;
+            return _dataContext.SaveChanges();
         }
         catch (Exception e)
         {
@@ -75,15 +77,14 @@ public class WasteRepository : IWasteRepository
         }
     }
 
+    //TODO Not correlty implemented
     public int DeleteWasteById(long id)
     {
         try
         {
             Waste? dbwaste = _dataContext.Wastes.Find(id);
-
             _dataContext.Wastes.Remove(dbwaste);
-            int rowsAffected = _dataContext.SaveChanges();
-            return rowsAffected;
+            return _dataContext.SaveChanges();
         }
         catch (Exception e)
         {
@@ -96,10 +97,8 @@ public class WasteRepository : IWasteRepository
         try
         {
             List<Waste> wasteList = _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
-
             _dataContext.Wastes.RemoveRange(wasteList);
-            int rowsAffected = _dataContext.SaveChanges();
-            return rowsAffected;
+            return _dataContext.SaveChanges();
         }
         catch (Exception e)
         {
