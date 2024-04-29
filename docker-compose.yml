@@ -3,10 +3,29 @@
 version: '3.4'
 
 services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: enviro365assessmentdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - enviro365assessment_volume:/var/lib/postgresql/data
+
   enviro365assessmentgraddotnetversion:
     image: enviro365assessmentgraddotnetversion
     build:
       context: .
       dockerfile: Enviro365Assessment_Grad_DOTNET_version/Dockerfile
     ports:
-      - 5244:5244
+      - "5244:5244"
+    depends_on:
+      - db
+
+
+volumes:
+  enviro365assessment_volume:
+    name: enviro365assessment_volume
+    external: true
