@@ -18,7 +18,7 @@ public class WasteRepository : IWasteRepository
         }
         catch (Exception e)
         {
-            throw new WasteError(e.Message);
+            throw new WasteErrorException(e.Message);
         }
     }
 
@@ -30,7 +30,7 @@ public class WasteRepository : IWasteRepository
         }
         catch (Exception e)
         {
-            throw new WasteError(e.Message);
+            throw new WasteErrorException(e.Message);
         }
     }
 
@@ -42,7 +42,7 @@ public class WasteRepository : IWasteRepository
         }
         catch (Exception e)
         {
-            throw new WasteError(e.Message);
+            throw new WasteErrorException(e.Message);
         }
     }
 
@@ -55,7 +55,7 @@ public class WasteRepository : IWasteRepository
         }
         catch (Exception e)
         {
-            throw new WasteError(e.Message);
+            throw new WasteErrorException(e.Message);
         }
     }
 
@@ -72,7 +72,7 @@ public class WasteRepository : IWasteRepository
         }
         catch (Exception e)
         {
-            throw new WasteError(e.Message);
+            throw new WasteErrorException(e.Message);
         }
     }
 
@@ -89,7 +89,7 @@ public class WasteRepository : IWasteRepository
         }
         catch (Exception e)
         {
-            throw new WasteError(e.Message);
+            throw new WasteErrorException(e.Message);
         }
     }
 
@@ -103,7 +103,7 @@ public class WasteRepository : IWasteRepository
         }
         catch (Exception e)
         {
-            throw new WasteError(e.Message);
+            throw new WasteErrorException(e.Message);
         }
     }
 }

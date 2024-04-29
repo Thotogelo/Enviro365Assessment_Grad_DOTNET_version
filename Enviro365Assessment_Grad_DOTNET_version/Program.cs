@@ -31,7 +31,7 @@ app.UseSwaggerUI(opt =>
 // Use the custom error handler middleware
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
-// app.MapGet("/demo", (Exception e) => { throw new WasteError();});
+// app.MapGet("/demo", (Exception e) => { throw new WasteErrorException();});
 app.MapControllers();
 
 app.Run();
