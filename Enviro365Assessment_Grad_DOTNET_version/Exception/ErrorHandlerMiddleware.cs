@@ -34,7 +34,7 @@ public class ErrorHandlerMiddleware
                 Instance = context.Request.Path.Value
             };
 
-            _logger.LogCritical(ex, "Exception has been thrown, from WasteError: ");
+            _logger.LogCritical(ex, "Exception has been thrown, from WasteErrorException: ");
             await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
         }
     }
