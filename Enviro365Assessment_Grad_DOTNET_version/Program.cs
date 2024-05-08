@@ -17,7 +17,7 @@ builder.Logging.AddConsole();
 
 //Add DI
 builder.Services.AddTransient<DataContext>();
-builder.Services.AddTransient<IWasteRepository, WasteRepository>();
+builder.Services.AddTransient<WasteRepository>();
 var app = builder.Build();
 
 app.UseSwagger();
