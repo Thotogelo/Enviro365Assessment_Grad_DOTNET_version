@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using Enviro365Assessment_Grad_DOTNET_version.Data;
 using Enviro365Assessment_Grad_DOTNET_version.Model;
 using Enviro365Assessment_Grad_DOTNET_version.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +9,9 @@ namespace Enviro365Assessment_Grad_DOTNET_version.Controller;
 [Route("/v1/api/[controller]")]
 public class WasteController : ControllerBase
 {
-    private readonly IWasteRepository _wasteRepository;
+    private readonly WasteRepository _wasteRepository;
 
-    public WasteController(IWasteRepository wasteRepository)
+    public WasteController(WasteRepository wasteRepository)
         => _wasteRepository = wasteRepository;
 
     [HttpGet("{id}")]
