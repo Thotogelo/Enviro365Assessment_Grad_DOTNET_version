@@ -38,7 +38,7 @@ public class WasteController : ControllerBase
 
     [HttpGet("data")]
     [Produces("application/json")]
-    public ActionResult<IEnumerator<Waste>> GetAllWaste()
+    public ActionResult<IEnumerable<Waste>> GetAllWaste()
     {
         return Ok(_wasteRepository.GetAllWaste());
     }
@@ -50,12 +50,7 @@ public class WasteController : ControllerBase
     {
         int rowsAffected = _wasteRepository.SaveWaste(waste);
         return (rowsAffected > 0)
-            ? Ok(new ProblemDetails
-            {
-                Title = "Waste saved successfully.",
-                Status = (int)HttpStatusCode.Created,
-                Instance = Request.Path.Value
-            })
+            ? Ok("Waste saved successfully.")
             : BadRequest(new ProblemDetails
             {
                 Title = "Waste not saved.",
@@ -71,12 +66,7 @@ public class WasteController : ControllerBase
     {
         int rowsAffected = _wasteRepository.UpdateWaste(waste);
         return (rowsAffected > 0)
-            ? Ok(new ProblemDetails
-            {
-                Title = "Waste updated successfully.",
-                Status = (int)HttpStatusCode.OK,
-                Instance = Request.Path.Value
-            })
+            ? Ok("Waste updated successfully.")
             : BadRequest(new ProblemDetails
             {
                 Title = "Waste not updated.",
@@ -91,12 +81,7 @@ public class WasteController : ControllerBase
         int rowsAffected = _wasteRepository.DeleteWasteById(id);
         if (rowsAffected > 0)
         {
-            return Ok(new ProblemDetails
-            {
-                Title = "Waste removed successfuly.",
-                Status = (int)HttpStatusCode.OK,
-                Instance = Request.Path.Value
-            });
+            return Ok("Waste removed successfuly.");
         }
         else
         {
@@ -114,14 +99,7 @@ public class WasteController : ControllerBase
     {
         int rowsAffected = _wasteRepository.DeleteWasteListByCategory(category);
         if (rowsAffected > 0)
-        {
-            return Ok(new ProblemDetails
-            {
-                Title = "Waste list removed successfuly.",
-                Status = (int)HttpStatusCode.OK,
-                Instance = Request.Path.Value
-            });
-        }
+            return Ok("Waste list removed successfuly.");
         else
         {
             return BadRequest(new ProblemDetails
