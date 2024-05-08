@@ -3,12 +3,12 @@ using Enviro365Assessment_Grad_DOTNET_version.Model;
 
 namespace Enviro365Assessment_Grad_DOTNET_version.Repository;
 
-public class WasteRepository : IWasteRepository
+public class WasteRepository
 {
     private readonly DataContext _dataContext;
 
-    public WasteRepository(DataContext dataContext) =>
-        _dataContext = dataContext;
+    public WasteRepository(DataContext dataContext)
+        => _dataContext = dataContext;
 
     public Waste? GetWasteById(long Id)
     {
@@ -22,28 +22,14 @@ public class WasteRepository : IWasteRepository
         }
     }
 
-    public List<Waste> GetWasteListByCategory(string category)
+    public IEnumerable<Waste> GetWasteListByCategory(string category)
     {
-        try
-        {
-            return _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
-        }
-        catch (Exception e)
-        {
-            throw new WasteErrorException(e.Message);
-        }
+        return _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower()));
     }
 
-    public List<Waste> GetAllWaste()
+    public IEnumerable<Waste> GetAllWaste()
     {
-        try
-        {
-            return _dataContext.Wastes.ToList();
-        }
-        catch (Exception e)
-        {
-            throw new WasteErrorException(e.Message);
-        }
+        return _dataContext.Wastes;
     }
 
     public int SaveWaste(Waste waste)
