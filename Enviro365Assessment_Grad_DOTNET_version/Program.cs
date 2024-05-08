@@ -7,11 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddProblemDetails();
-
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Environment Data API", Version = "v1" });
+});
 // Logging Services
 builder.Logging.AddConsole();
 
