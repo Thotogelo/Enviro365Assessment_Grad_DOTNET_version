@@ -32,14 +32,14 @@ public class WasteController : ControllerBase
 
     [HttpGet("category/{category}")]
     [Produces("application/json")]
-    public ActionResult<List<Waste>> GetWasteListByCategory(string category)
+    public ActionResult<IEnumerator<Waste>> GetWasteListByCategory(string category)
     {
         return Ok(_wasteRepository.GetWasteListByCategory(category));
     }
 
     [HttpGet("data")]
     [Produces("application/json")]
-    public ActionResult<List<Waste>> GetAllWaste()
+    public ActionResult<IEnumerator<Waste>> GetAllWaste()
     {
         return Ok(_wasteRepository.GetAllWaste());
     }
