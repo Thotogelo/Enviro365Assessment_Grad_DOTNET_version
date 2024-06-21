@@ -1,4 +1,4 @@
-namespace Enviro365Assessment_Grad_DOTNET_version;
+namespace Enviro365Assessment_Grad_DOTNET_version.Exceptions;
 public class WasteErrorException : Exception
 {
     public WasteErrorException()

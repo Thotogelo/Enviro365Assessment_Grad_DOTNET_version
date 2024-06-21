@@ -9,7 +9,7 @@ public class Waste
     [Key]
     [Required]
     [Column(name: "waste_id")]
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 
     [Required]
     [Column(name: "waste_category", TypeName = "varchar(10)")]

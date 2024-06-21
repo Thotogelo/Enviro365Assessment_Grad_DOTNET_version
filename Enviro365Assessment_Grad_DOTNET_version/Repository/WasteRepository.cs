@@ -1,4 +1,7 @@
-﻿using Enviro365Assessment_Grad_DOTNET_version.Data;
+﻿using System.Diagnostics;
+using Enviro365Assessment_Grad_DOTNET_version.Data;
+using Enviro365Assessment_Grad_DOTNET_version.DTO;
+using Enviro365Assessment_Grad_DOTNET_version.Exceptions;
 using Enviro365Assessment_Grad_DOTNET_version.Model;
 
 namespace Enviro365Assessment_Grad_DOTNET_version.Repository;
@@ -7,19 +10,23 @@ public class WasteRepository
 {
     private readonly DataContext _dataContext;
 
+    public Waste ToWaste(WasteDTO wasteDto)
+    {
+        return new Waste()
+        {
+            Id = Guid.NewGuid(),
+            Category = wasteDto.Category,
+            Disposalguideline = wasteDto.DisposalGuideline,
+            Recyclingtips = wasteDto.RecyclingTips
+        };
+    }
+
     public WasteRepository(DataContext dataContext)
         => _dataContext = dataContext;
 
-    public Waste? GetWasteById(long Id)
+    public Waste? GetWasteById(Guid Id)
     {
-        try
-        {
-            return _dataContext.Wastes.Find(Id);
-        }
-        catch (Exception e)
-        {
-            throw new WasteErrorException(e.Message);
-        }
+        return _dataContext.Wastes.Find(Id);
     }
 
     public IEnumerable<Waste> GetWasteListByCategory(string category)
@@ -45,32 +52,20 @@ public class WasteRepository
         }
     }
 
-    public int UpdateWaste(Waste waste)
+    public void UpdateWaste(Waste waste)
     {
-        try
-        {
-            var dbWaste = _dataContext.Wastes.Find(waste.Id);
-            if (dbWaste == null)
-                return 0;
-
-            _dataContext.Entry(dbWaste).CurrentValues.SetValues(waste);
-            return _dataContext.SaveChanges();
-        }
-        catch (Exception e)
-        {
-            throw new WasteErrorException(e.Message);
-        }
+        _dataContext.Entry(waste).CurrentValues.SetValues(waste);
+        _dataContext.SaveChanges();
     }
 
-    public int DeleteWasteById(long id)
+    public int DeleteWasteById(Guid id)
     {
         try
         {
-            var dbwaste = _dataContext.Wastes.Find(id);
-            if (dbwaste == null)
-                return 0;
-
-            _dataContext.Wastes.Remove(dbwaste);
+            Debug.Assert(_dataContext == null, nameof(_dataContext) + " != null");
+            var waste = _dataContext.Wastes.Find(id);
+            if (waste != null)
+                _dataContext.Wastes.Remove(waste);
             return _dataContext.SaveChanges();
         }
         catch (Exception e)
@@ -81,15 +76,7 @@ public class WasteRepository
 
     public int DeleteWasteListByCategory(string category)
     {
-        try
-        {
-            List<Waste> wasteList = _dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())).ToList();
-            _dataContext.Wastes.RemoveRange(wasteList);
-            return _dataContext.SaveChanges();
-        }
-        catch (Exception e)
-        {
-            throw new WasteErrorException(e.Message);
-        }
+        _dataContext.Wastes.RemoveRange(_dataContext.Wastes.Where(x => x.Category.Equals(category.ToLower())));
+        return _dataContext.SaveChanges();
     }
 }

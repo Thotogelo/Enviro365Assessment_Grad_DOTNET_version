@@ -2,7 +2,7 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Enviro365Assessment_Grad_DOTNET_version;
+namespace Enviro365Assessment_Grad_DOTNET_version.Exceptions;
 
 public class ErrorHandlerMiddleware
 {

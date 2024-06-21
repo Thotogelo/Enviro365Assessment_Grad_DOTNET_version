@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="environmentdb.sqlite" uuid="a93b5681-c6a6-4417-9ee8-5c428082b3dd">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\ramot\RiderProjects\Enviro365Assessment_GradJava_DOTNET_version\Enviro365Assessment_Grad_DOTNET_version\doc\environmentdb.sqlite</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-      </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="environmentdb@localhost" uuid="79edbf30-5441-406e-ba1a-0e3a320683bf">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>

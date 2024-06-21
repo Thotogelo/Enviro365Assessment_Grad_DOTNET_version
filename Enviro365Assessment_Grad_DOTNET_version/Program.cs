@@ -1,7 +1,6 @@
-using Enviro365Assessment_Grad_DOTNET_version;
 using Enviro365Assessment_Grad_DOTNET_version.Data;
+using Enviro365Assessment_Grad_DOTNET_version.Exceptions;
 using Enviro365Assessment_Grad_DOTNET_version.Repository;
-using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +9,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddProblemDetails();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "Environment Data API", Version = "v1" });
-});
+builder.Services.AddSwaggerGen(c 
+    => { c.SwaggerDoc("v1", new() { Title = "Environment Data API", Version = "v1" }); });
 // Logging Services
 builder.Logging.AddConsole();
 
@@ -33,7 +30,6 @@ app.UseSwaggerUI(opt =>
 // Use the custom error handler middleware
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
-// app.MapGet("/demo", (Exception e) => { throw new WasteErrorException();});
 app.MapControllers();
 
 app.Run();
